@@ -56,9 +56,9 @@ deploy-images:
   script:
     - cd frontend
     - docker build -t frontend:latest .
-    - docker push frontend:latest
+    - docker push $DOCKERHUB_ID/frontend:latest
     - docker build -f ../backend -t backend:latest .
-    - docker push backend:latest
+    - docker push $DOCKERHUB_ID/backend:latest
   after_script:
     - docker logout
     - echo "Imagens publicadas no DockerHub!"    
