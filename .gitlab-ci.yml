@@ -4,24 +4,42 @@ stages:
   - deploy
 
 build-backend:
-  stage: test
-  script:
+  stage: build
+  before_script:
     - echo "Rodando o build do back"
+  script:
+    - cd backend
+    - docker-compose build -t backend .
+  after_script:
+    - echo "Build backend OK!"
 
 build-frontend:
   stage: build
-  script:
+  before_script:
     - echo "Rodando o build do front"
+  script:
+    - cd frontend
+    - docker-compose build -t frontend .
+  after_script:
+    - echo "Build frontend OK!"
 
 test-backend:
   stage: test
-  script:
+  before_script:
     - echo "Rodando os testes do back"
+  script:
+    - docker-compose run --entrypoint "npm run test" backend
+  after_script:
+    - echo "Testes backend OK!"
 
 test-frontend:
   stage: test
-  script:
+  before_script:
     - echo "Rodando os testes do front"
+  script:
+    - docker-compose run --entrypoint "npm run test" frontend
+  after_script:
+    - echo "Testes frontend OK!"
 
 deploy-images:
   stage: deploy
