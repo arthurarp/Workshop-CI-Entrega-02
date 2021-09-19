@@ -34,7 +34,7 @@ test-backend:
   before_script:
     - echo "Rodando os testes do back"
   script:
-    - docker-compose run --entrypoint "npm run test" backend
+    - docker-compose run --entrypoint "npm run unittest" backend
   after_script:
     - echo "Testes backend OK!"
 
@@ -49,5 +49,15 @@ test-frontend:
 
 deploy-images:
   stage: deploy
-  script:
+  before_script:
     - echo "Subindo as imagens para o dockerhub"
+    - echo "Autenticando com dockerhub"
+    - docker login --username $DOCKERHUB_ID --password $DOCKERHUB_PASS
+  script:
+    - cd frontend
+    - docker build -t frontend:latest .
+    - docker build -f ~/backend -t backend:latest .
+    - docker push frontend:latest
+  after_script:
+    - docker logout
+    - echo "Imagens publicadas no DockerHub!"    
