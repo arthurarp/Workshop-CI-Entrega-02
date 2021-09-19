@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build-backend:
+  stage: test
+  script:
+    - echo "Rodando o build do back"
+
+build-frontend:
+  stage: build
+  script:
+    - echo "Rodando o build do front"
+
+test-backend:
+  stage: test
+  script:
+    - echo "Rodando os testes do back"
+
+test-frontend:
+  stage: test
+  script:
+    - echo "Rodando os testes do front"
+
+deploy-images:
+  stage: deploy
+  script:
+    - echo "Subindo as imagens para o dockerhub"
