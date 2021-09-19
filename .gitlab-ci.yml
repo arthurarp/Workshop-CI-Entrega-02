@@ -57,7 +57,7 @@ deploy-images:
     - cd frontend
     - docker build -t $DOCKERHUB_ID/frontend:latest .
     - docker push $DOCKERHUB_ID/frontend:latest
-    - docker build -f ../backend -t $DOCKERHUB_ID/backend:latest .
+    - docker build -f ../backend/Dockerfile -t $DOCKERHUB_ID/backend:latest .
     - docker push $DOCKERHUB_ID/backend:latest
   after_script:
     - docker logout
