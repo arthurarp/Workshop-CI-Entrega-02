@@ -15,7 +15,7 @@ build-backend:
     - echo "Rodando o build do back"
   script:
     - cd backend
-    - docker-compose build -t backend .
+    - docker build -t backend .
   after_script:
     - echo "Build backend OK!"
 
@@ -25,7 +25,7 @@ build-frontend:
     - echo "Rodando o build do front"
   script:
     - cd frontend
-    - docker-compose build -t frontend .
+    - docker build -t frontend .
   after_script:
     - echo "Build frontend OK!"
 
