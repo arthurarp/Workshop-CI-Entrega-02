@@ -52,12 +52,12 @@ deploy-images:
   before_script:
     - echo "Subindo as imagens para o dockerhub"
     - echo "Autenticando com dockerhub"
-    - docker login -u $DOCKERHUB_ID -p $DOCKERHUB_PASS
+    - docker login -u $DOCKERHUB_ID --password-stdin $DOCKERHUB_PASS
   script:
     - cd frontend
-    - docker build -t frontend:latest .
+    - docker build -t $DOCKERHUB_ID/frontend:latest .
     - docker push $DOCKERHUB_ID/frontend:latest
-    - docker build -f ../backend -t backend:latest .
+    - docker build -f ../backend -t $DOCKERHUB_ID/backend:latest .
     - docker push $DOCKERHUB_ID/backend:latest
   after_script:
     - docker logout
